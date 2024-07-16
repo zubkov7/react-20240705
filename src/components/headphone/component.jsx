@@ -1,4 +1,5 @@
 import { CounterContainer } from "../counter/container";
+import { ReviewForm } from "../review-form/component";
 import { Review } from "../review/component";
 
 export const Headphone = ({ name, brand, reviews, price }) => {
@@ -20,6 +21,7 @@ export const Headphone = ({ name, brand, reviews, price }) => {
         </ul>
       ) : null}
       <CounterContainer />
+      <ReviewForm />
     </div>
   );
 };
