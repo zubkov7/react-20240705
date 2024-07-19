@@ -1,8 +1,17 @@
 import { CounterContainer } from "../counter/container";
 import { ReviewForm } from "../review-form/component";
 import { Review } from "../review/component";
+import classnames from "classnames";
 
-export const Headphone = ({ name, brand, reviews, price }) => {
+import styles from "./styles.module.css";
+
+export const Headphone = ({
+  name,
+  brand,
+  reviews,
+  price,
+  extraStyle = false,
+}) => {
   if (!name) {
     return null;
   }
@@ -11,7 +20,9 @@ export const Headphone = ({ name, brand, reviews, price }) => {
     <div>
       <h3>
         {brand} - {name}
-        <span style={{ marginLeft: "10px" }}>{price}</span>
+        <span className={styles.price1}>
+          <span className={styles.price2}>{price}</span>
+        </span>
       </h3>
       {reviews?.length ? (
         <ul>
