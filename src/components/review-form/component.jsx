@@ -1,4 +1,7 @@
+import { Button } from "../button/components";
 import { useForm } from "./hooks";
+
+import styles from "./styles.module.css";
 
 export const ReviewForm = () => {
   const { form, updateName, updateText, updateAddress } = useForm();
@@ -32,6 +35,14 @@ export const ReviewForm = () => {
           onChange={(event) => {
             updateAddress(event.target.value);
           }}
+        />
+      </div>
+      <div className={styles.closeButtonWrapper}>
+        <Button
+          className={styles.button}
+          viewVariant='small'
+          text='clear'
+          onClick={() => {}}
         />
       </div>
     </div>

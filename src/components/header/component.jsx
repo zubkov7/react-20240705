@@ -1,5 +1,10 @@
-import styles from "./styles.module.css";
+import { ThemeButton } from "../theme-button/component";
 
 export const Header = () => {
-  return <header className={styles.price}>headphone shop</header>;
+  return (
+    <header>
+      <div>headphone shop</div>
+      <ThemeButton />
+    </header>
+  );
 };
