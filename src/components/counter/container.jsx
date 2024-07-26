@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback } from "react";
 import { Counter } from "./component";
 
 const useCount = ({ min = 0, max = 5, step = 1 }) => {
@@ -6,7 +6,7 @@ const useCount = ({ min = 0, max = 5, step = 1 }) => {
 
   const increment = useCallback(
     () => setValue((prevState) => Math.min(max, prevState + step)),
-    [max, step, value]
+    [max, step]
   );
 
   const decrement = useCallback(
@@ -28,34 +28,5 @@ const useStepOneCounter = () => {
 export const CounterContainer = () => {
   const { value, increment, decrement } = useStepOneCounter();
 
-  // useEffect(() => {
-  //   increment();
-  // }, [increment]);
-
-  // useEffect(() => {
-  //   setInterval(increment, 1000);
-  // }, [increment]);
-
-  const intervalRef = useRef(null);
-
-  return (
-    <div>
-      <Counter value={value} increment={increment} decrement={decrement} />
-      <button
-        onClick={() => {
-          intervalRef.current = setInterval(increment, 1000);
-        }}
-      >
-        launch interval
-      </button>
-      <button
-        onClick={() => {
-          clearInterval(intervalRef.current);
-          intervalRef.current = null;
-        }}
-      >
-        stop interval
-      </button>
-    </div>
-  );
+  return <Counter value={value} increment={increment} decrement={decrement} />;
 };

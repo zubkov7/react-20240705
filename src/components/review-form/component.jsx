@@ -4,7 +4,7 @@ import { useForm } from "./hooks";
 import styles from "./styles.module.css";
 
 export const ReviewForm = () => {
-  const { form, updateName, updateText, updateAddress } = useForm();
+  const { form, updateName, updateText, updateAddress, clear } = useForm();
 
   const { name, text, address } = form;
 
@@ -42,7 +42,7 @@ export const ReviewForm = () => {
           className={styles.button}
           viewVariant='small'
           text='clear'
-          onClick={() => {}}
+          onClick={clear}
         />
       </div>
     </div>

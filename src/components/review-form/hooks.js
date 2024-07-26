@@ -23,6 +23,8 @@ function reducer(state, { type, payload }) {
         ...state,
         address: payload,
       };
+    case "clear":
+      return INITIAL_FORM;
     default:
       return state;
   }
@@ -33,6 +35,7 @@ export const useForm = () => {
 
   const updateName = (name) => dispatch({ type: "setName", payload: name });
   const updateText = (text) => dispatch({ type: "setText", payload: text });
+  const clear = () => dispatch({ type: "clear" });
   const updateAddress = (address) =>
     dispatch({ type: "setAddress", payload: address });
 
@@ -40,6 +43,7 @@ export const useForm = () => {
     form,
     updateName,
     updateText,
+    clear,
     updateAddress,
   };
 };
