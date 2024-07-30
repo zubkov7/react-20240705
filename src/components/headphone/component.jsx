@@ -1,15 +1,13 @@
-import { CounterContainer } from "../counter/container";
 import { ReviewForm } from "../review-form/component";
 import { Review } from "../review/component";
 
 import { useSelector } from "react-redux";
 import { selectHeadphoneById } from "../../redux/entities/headphone";
 import { Codec } from "../codec/component";
+import { HeadphoneCartSection } from "../headphone-cart-section/component";
 
 export const Headphone = ({ id }) => {
   const headphone = useSelector((state) => selectHeadphoneById(state, id));
-
-  console.log(headphone);
 
   const {
     name,
@@ -33,7 +31,7 @@ export const Headphone = ({ id }) => {
           reviews:
           <ul>
             {reviewsIds.map((id) => (
-              <li>
+              <li key={id}>
                 <Review id={id} />
               </li>
             ))}
@@ -45,14 +43,14 @@ export const Headphone = ({ id }) => {
           codecs:
           <ul>
             {codecsIds.map((id) => (
-              <li>
+              <li key={id}>
                 <Codec id={id} />
               </li>
             ))}
           </ul>
         </div>
       ) : null}
-      <CounterContainer />
+      <HeadphoneCartSection id={id} />
       <ReviewForm />
     </div>
   );

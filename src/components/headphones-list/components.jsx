@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { selectHeadphonesIds } from "../../redux/entities/headphone";
-import { Headphone } from "../headphone/component";
+import { HeadphoneLink } from "../headphone-link/components";
 
 export const HeadphonesList = () => {
   const ids = useSelector(selectHeadphonesIds);
@@ -12,8 +12,8 @@ export const HeadphonesList = () => {
   return (
     <ul>
       {ids.map((id) => (
-        <li>
-          <Headphone id={id} />
+        <li key={id}>
+          <HeadphoneLink id={id} />
         </li>
       ))}
     </ul>

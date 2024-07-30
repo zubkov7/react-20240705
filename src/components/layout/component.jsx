@@ -1,11 +1,14 @@
+import { Outlet } from "react-router-dom";
 import { Footer } from "../footer/component";
 import { Header } from "../header/component";
+import { Cart } from "../cart/component";
 
-export const Layout = ({ children }) => {
+export const Layout = () => {
   return (
     <div>
       <Header />
-      {children}
+      <Outlet />
+      <Cart />
       <Footer />
     </div>
   );

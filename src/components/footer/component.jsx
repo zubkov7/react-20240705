@@ -1,3 +1,3 @@
-export const Footer = (props) => {
+export const Footer = () => {
   return <footer>contacts</footer>;
 };

@@ -6,8 +6,6 @@ export const Review = ({ id }) => {
   const { text, user: userId } =
     useSelector((state) => selectReviewById(state, id)) || {};
 
-  console.log(text);
-
   if (!text) {
     return null;
   }
