@@ -1,5 +1,4 @@
 import { Layout } from "./layout/component";
-import { ThemeContextProvider } from "./theme-context";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
 
@@ -8,17 +7,9 @@ import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
 import { HeadphonesPage } from "./headphones-page/components";
 import { HeadphonePage } from "./headphone-page/components";
-import { Navigate } from "react-router-dom";
+import { ThemeContextProvider } from "./theme-context/component";
 
 const router = createBrowserRouter([
-  {
-    path: "/about",
-    element: <div>about</div>,
-  },
-  {
-    path: "/blocked",
-    element: <Navigate to='/' replace />,
-  },
   {
     path: "/",
     element: <Layout />,
@@ -34,7 +25,6 @@ const router = createBrowserRouter([
         ],
       },
     ],
-    errorElement: <div>Not Found</div>,
   },
 ]);
 

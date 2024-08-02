@@ -3,12 +3,10 @@ import { selectHeadphoneById } from "../../redux/entities/headphone";
 import { NavLink } from "react-router-dom";
 
 import styles from "./styles.module.css";
-// import { useNavigate } from "react-router-dom";
+import classNames from "classnames";
 
 export const HeadphoneLink = ({ id }) => {
   const { name } = useSelector((state) => selectHeadphoneById(state, id)) || {};
-
-  //   const navigate = useNavigate();
 
   if (!name) {
     return null;
@@ -16,12 +14,13 @@ export const HeadphoneLink = ({ id }) => {
 
   return (
     <div>
-      {/* <button onClick={() => navigate(id)}>To - {name}</button> */}
       <NavLink
-        className={({ isActive }) => isActive && styles.activeLink}
+        className={({ isActive }) =>
+          classNames(styles.link, isActive && styles.activeLink)
+        }
         to={id}
       >
-        {({ isActive }) => (isActive ? <span>current - {name}</span> : name)}
+        {name}
       </NavLink>
     </div>
   );

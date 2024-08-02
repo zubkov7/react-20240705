@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import styles from "./styles.module.css";
-import { useTheme } from "../theme-context";
+import { useTheme } from "../theme-context/hooks";
 
 export const Button = ({
   text,

@@ -1,17 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit/react";
+import { createSlice, createSelector } from "@reduxjs/toolkit/react";
 
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {},
   selectors: {
-    selectCartItems: (state) => {
-      return (
-        Object.keys(state).reduce((acc, id) => {
-          acc.push({ itemId: id, amount: state[id] });
-          return acc;
-        }, []) || []
-      );
-    },
+    selectCartState: (state) => state,
     selectCartItemAmountById: (state, id) => {
       return state[id] || 0;
     },
@@ -34,7 +27,16 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { selectCartItems, selectCartItemAmountById } =
+export const { selectCartItemAmountById, selectCartState } =
   cartSlice.selectors;
+
+export const selectCartItems = createSelector(selectCartState, (state) => {
+  return (
+    Object.keys(state).reduce((acc, id) => {
+      acc.push({ itemId: id, amount: state[id] });
+      return acc;
+    }, []) || []
+  );
+});
 
 export const { addCartItem, removeCartItem } = cartSlice.actions;
