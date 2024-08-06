@@ -1,31 +1,26 @@
-import { useSelector } from "react-redux";
-import { selectHeadphonesIds } from "../../redux/entities/headphone";
 import { HeadphoneLink } from "../headphone-link/components";
-import { getHeadphones } from "../../redux/entities/headphone/get-headphones";
-import { useRequest } from "../../hooks/use-request";
+import { useGetHeadphonesQuery } from "../../redux/services/api";
 
 export const HeadphonesList = () => {
-  const ids = useSelector(selectHeadphonesIds);
+  const { isLoading, isError, data } = useGetHeadphonesQuery();
 
-  const requestStatus = useRequest(getHeadphones);
-
-  if (requestStatus === "pending") {
+  if (isLoading) {
     return <div>...loading</div>;
   }
 
-  if (requestStatus === "rejected") {
+  if (isError) {
     return <div>error</div>;
   }
 
-  if (!ids.length) {
+  if (!data.length) {
     return null;
   }
 
   return (
     <ul>
-      {ids.map((id) => (
+      {data.map(({ id, name }) => (
         <li key={id}>
-          <HeadphoneLink id={id} />
+          <HeadphoneLink id={id} name={name} />
         </li>
       ))}
     </ul>

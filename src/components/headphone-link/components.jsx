@@ -1,13 +1,9 @@
-import { useSelector } from "react-redux";
-import { selectHeadphoneById } from "../../redux/entities/headphone";
 import { NavLink } from "react-router-dom";
 
 import styles from "./styles.module.css";
 import classNames from "classnames";
 
-export const HeadphoneLink = ({ id }) => {
-  const { name } = useSelector((state) => selectHeadphoneById(state, id)) || {};
-
+export const HeadphoneLink = ({ id, name }) => {
   if (!name) {
     return null;
   }

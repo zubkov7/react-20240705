@@ -3,22 +3,15 @@ import { useForm } from "./hooks";
 
 import styles from "./styles.module.css";
 
-export const ReviewForm = () => {
-  const { form, updateName, updateText, updateAddress, clear } = useForm();
+export const ReviewForm = ({ headphoneId }) => {
+  const { form, updateText, clear, addReview, isReviewLoading } = useForm({
+    headphoneId,
+  });
 
-  const { name, text, address } = form;
+  const { text } = form;
 
   return (
     <div>
-      <div>
-        <span>Name</span>
-        <input
-          value={name}
-          onChange={(event) => {
-            updateName(event.target.value);
-          }}
-        />
-      </div>
       <div>
         <span>Text</span>
         <input
@@ -28,21 +21,19 @@ export const ReviewForm = () => {
           }}
         />
       </div>
-      <div>
-        <span>Address</span>
-        <input
-          value={address}
-          onChange={(event) => {
-            updateAddress(event.target.value);
-          }}
-        />
-      </div>
       <div className={styles.closeButtonWrapper}>
         <Button
           className={styles.button}
           viewVariant='small'
           text='clear'
           onClick={clear}
+        />
+        <Button
+          className={styles.button}
+          viewVariant='small'
+          text='save'
+          onClick={addReview}
+          disabled={isReviewLoading}
         />
       </div>
     </div>

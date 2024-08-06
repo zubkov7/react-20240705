@@ -7,6 +7,7 @@ export const Button = ({
   onClick,
   viewVariant = "default",
   className,
+  disabled,
 }) => {
   const { value: themeValue } = useTheme();
 
@@ -17,8 +18,10 @@ export const Button = ({
         [styles.small]: viewVariant === "small",
         [styles.light]: themeValue === "light",
         [styles.dark]: themeValue === "dark",
+        [styles.disabled]: disabled,
       })}
       onClick={onClick}
+      disabled={disabled}
     >
       {text}
     </button>

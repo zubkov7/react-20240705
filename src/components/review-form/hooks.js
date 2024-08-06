@@ -1,27 +1,19 @@
 import { useReducer } from "react";
+import { useAddReviewMutation } from "../../redux/services/api";
+import { useCallback } from "react";
 
 const INITIAL_FORM = {
-  name: "",
   text: "",
-  address: "",
+  user: "hr83h29h9h9u12h9213",
+  rating: 3,
 };
 
 function reducer(state, { type, payload }) {
   switch (type) {
-    case "setName":
-      return {
-        ...INITIAL_FORM,
-        name: payload,
-      };
     case "setText":
       return {
         ...state,
         text: payload,
-      };
-    case "setAddress":
-      return {
-        ...state,
-        address: payload,
       };
     case "clear":
       return INITIAL_FORM;
@@ -30,20 +22,22 @@ function reducer(state, { type, payload }) {
   }
 }
 
-export const useForm = () => {
+export const useForm = ({ headphoneId }) => {
   const [form, dispatch] = useReducer(reducer, INITIAL_FORM);
 
-  const updateName = (name) => dispatch({ type: "setName", payload: name });
+  const [addReview, { isLoading }] = useAddReviewMutation();
+
   const updateText = (text) => dispatch({ type: "setText", payload: text });
   const clear = () => dispatch({ type: "clear" });
-  const updateAddress = (address) =>
-    dispatch({ type: "setAddress", payload: address });
+  const handleAddReview = useCallback(() => {
+    addReview({ headphoneId, review: form });
+  }, [addReview, form, headphoneId]);
 
   return {
     form,
-    updateName,
     updateText,
     clear,
-    updateAddress,
+    addReview: handleAddReview,
+    isReviewLoading: isLoading,
   };
 };

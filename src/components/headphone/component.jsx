@@ -1,13 +1,17 @@
 import { ReviewForm } from "../review-form/component";
-import { Review } from "../review/component";
 
-import { useSelector } from "react-redux";
-import { selectHeadphoneById } from "../../redux/entities/headphone";
 import { Codec } from "../codec/component";
 import { HeadphoneCartSection } from "../headphone-cart-section/component";
+import { useGetHeadphonesQuery } from "../../redux/services/api";
+import { HeadphoneReviewList } from "../headphone-review-list/component";
 
 export const Headphone = ({ id }) => {
-  const headphone = useSelector((state) => selectHeadphoneById(state, id));
+  const { data } = useGetHeadphonesQuery(undefined, {
+    selectFromResult: ({ data, ...rest }) => ({
+      ...rest,
+      data: data?.find((entity) => entity.id === id),
+    }),
+  });
 
   const {
     name,
@@ -15,7 +19,7 @@ export const Headphone = ({ id }) => {
     reviews: reviewsIds,
     price,
     codecs: codecsIds,
-  } = headphone || {};
+  } = data || {};
 
   if (!name) {
     return null;
@@ -29,13 +33,7 @@ export const Headphone = ({ id }) => {
       {reviewsIds?.length ? (
         <div>
           reviews:
-          <ul>
-            {reviewsIds.map((id) => (
-              <li key={id}>
-                <Review id={id} />
-              </li>
-            ))}
-          </ul>
+          <HeadphoneReviewList headphoneId={id} />
         </div>
       ) : null}
       {codecsIds?.length ? (
@@ -51,7 +49,7 @@ export const Headphone = ({ id }) => {
         </div>
       ) : null}
       <HeadphoneCartSection id={id} />
-      <ReviewForm />
+      <ReviewForm headphoneId={id} />
     </div>
   );
 };
