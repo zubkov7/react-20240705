@@ -32,6 +32,34 @@ export const apiSlice = createApi({
         { type: "Review", id: result.id },
       ],
     }),
+    updateReview: builder.mutation({
+      query: ({ review }) => ({
+        url: `/review/${review.id}`,
+        method: "PATCH",
+        body: review,
+      }),
+      async onQueryStarted({ review, headphoneId }, lifecycleApi) {
+        const getReviewsByHeadphoneIdPatchResult = lifecycleApi.dispatch(
+          apiSlice.util.updateQueryData(
+            "getReviewsByHeadphoneId",
+            { headphoneId },
+            (draft) => {
+              const reviewToUpdate = draft.find(
+                (draftReview) => draftReview.id === review.id
+              );
+
+              reviewToUpdate.text = review.text;
+            }
+          )
+        );
+
+        try {
+          await lifecycleApi.queryFulfilled;
+        } catch {
+          getReviewsByHeadphoneIdPatchResult.undo();
+        }
+      },
+    }),
   }),
 });
 
@@ -40,4 +68,5 @@ export const {
   useLazyGetHeadphonesQuery,
   useGetReviewsByHeadphoneIdQuery,
   useAddReviewMutation,
+  useUpdateReviewMutation,
 } = apiSlice;

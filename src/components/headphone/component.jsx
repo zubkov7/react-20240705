@@ -1,5 +1,3 @@
-import { ReviewForm } from "../review-form/component";
-
 import { Codec } from "../codec/component";
 import { HeadphoneCartSection } from "../headphone-cart-section/component";
 import { useGetHeadphonesQuery } from "../../redux/services/api";
@@ -32,13 +30,13 @@ export const Headphone = ({ id }) => {
       {price && <div>Price - {price}</div>}
       {reviewsIds?.length ? (
         <div>
-          reviews:
+          <h3>Reviews</h3>
           <HeadphoneReviewList headphoneId={id} />
         </div>
       ) : null}
       {codecsIds?.length ? (
         <div>
-          codecs:
+          <h3>Codecs</h3>
           <ul>
             {codecsIds.map((id) => (
               <li key={id}>
@@ -49,7 +47,6 @@ export const Headphone = ({ id }) => {
         </div>
       ) : null}
       <HeadphoneCartSection id={id} />
-      <ReviewForm headphoneId={id} />
     </div>
   );
 };

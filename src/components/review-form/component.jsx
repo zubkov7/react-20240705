@@ -3,19 +3,19 @@ import { useForm } from "./hooks";
 
 import styles from "./styles.module.css";
 
-export const ReviewForm = ({ headphoneId }) => {
-  const { form, updateText, clear, addReview, isReviewLoading } = useForm({
-    headphoneId,
+export const ReviewForm = ({ isReviewLoading, onSave, text }) => {
+  const { form, updateText } = useForm({
+    text,
   });
 
-  const { text } = form;
+  const { text: formText } = form;
 
   return (
     <div>
       <div>
         <span>Text</span>
         <input
-          value={text}
+          value={formText}
           onChange={(event) => {
             updateText(event.target.value);
           }}
@@ -25,14 +25,8 @@ export const ReviewForm = ({ headphoneId }) => {
         <Button
           className={styles.button}
           viewVariant='small'
-          text='clear'
-          onClick={clear}
-        />
-        <Button
-          className={styles.button}
-          viewVariant='small'
           text='save'
-          onClick={addReview}
+          onClick={() => onSave(form)}
           disabled={isReviewLoading}
         />
       </div>
