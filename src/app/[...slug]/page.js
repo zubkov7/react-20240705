@@ -1,5 +1,11 @@
 import { App } from "./app";
 
-export default function Page() {
+export function generateStaticParams() {
+  return [{ slug: ["headphones", "MLXJ2LLA"] }];
+}
+
+export default function Page({ params: { slug } }) {
+  console.log(slug);
+
   return <App />;
 }
